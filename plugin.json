@@ -1,0 +1,11 @@
+{
+  "name": "MuteOnWake",
+  "author": "roses",
+  "flags": ["root"],
+  "api_version": 1,
+  "publish": {
+    "tags": ["audio", "utility"],
+    "description": "Automatically sets volume to 0% when Steam Deck wakes from sleep.",
+    "image": ""
+  }
+}
