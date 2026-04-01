@@ -4,15 +4,15 @@ import os
 import pwd
 import decky
 
-
 SETTINGS_PATH = os.path.join(decky.DECKY_PLUGIN_SETTINGS_DIR, "settings.json")
 
+# figure out who the deck user is from the homebrew install dir
 _decky_home = os.environ.get("DECKY_HOME", "/home/deck/homebrew")
 _deck_uid = os.stat(_decky_home).st_uid
 _deck_user = pwd.getpwuid(_deck_uid).pw_name
 
 
-def load_settings() -> dict:
+def load_settings():
     try:
         with open(SETTINGS_PATH, "r") as f:
             return json.load(f)
@@ -20,31 +20,28 @@ def load_settings() -> dict:
         return {"enabled": True}
 
 
-def save_settings(settings: dict):
+def save_settings(settings):
     os.makedirs(os.path.dirname(SETTINGS_PATH), exist_ok=True)
     with open(SETTINGS_PATH, "w") as f:
         json.dump(settings, f)
 
 
 class Plugin:
-    async def get_enabled(self) -> bool:
-        settings = load_settings()
-        return settings.get("enabled", True)
+    async def get_enabled(self):
+        return load_settings().get("enabled", True)
 
-    async def set_enabled(self, enabled: bool):
+    async def set_enabled(self, enabled):
         settings = load_settings()
         settings["enabled"] = enabled
         save_settings(settings)
-        decky.logger.info(f"MuteOnWake enabled: {enabled}")
+        decky.logger.info(f"enabled: {enabled}")
 
     async def set_volume_zero(self):
         settings = load_settings()
         if not settings.get("enabled", True):
-            decky.logger.info("MuteOnWake is disabled, skipping")
             return
 
-        decky.logger.info("Setting volume to 0%")
-
+        decky.logger.info("muting audio")
         xdg_runtime = f"/run/user/{_deck_uid}"
 
         mute_proc = await asyncio.create_subprocess_exec(
@@ -61,12 +58,10 @@ class Plugin:
 
         for i, (_, stderr) in enumerate(results):
             if stderr:
-                decky.logger.error(f"pactl command {i} error: {stderr.decode()}")
-
-        decky.logger.info("Volume set to 0% and muted")
+                decky.logger.error(f"pactl command {i} stderr: {stderr.decode()}")
 
     async def _main(self):
-        decky.logger.info("MuteOnWake plugin loaded")
+        decky.logger.info("MuteOnWake loaded")
 
     async def _unload(self):
-        decky.logger.info("MuteOnWake plugin unloaded")
+        decky.logger.info("MuteOnWake unloaded")
