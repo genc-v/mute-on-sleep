@@ -61,7 +61,7 @@ class Plugin:
                 decky.logger.error(f"pactl command {i} stderr: {stderr.decode()}")
 
     async def _main(self):
-        decky.logger.info("MuteOnWake loaded")
+        decky.logger.info("MuteOnSleep loaded")
 
     async def _unload(self):
-        decky.logger.info("MuteOnWake unloaded")
+        decky.logger.info("MuteOnSleep unloaded")

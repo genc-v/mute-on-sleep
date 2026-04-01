@@ -17,7 +17,7 @@ function getSuspendObservable() {
   return admin?.values_?.get("m_bSuspending") ?? null;
 }
 
-function MuteOnWakePanel() {
+function MuteOnSleepPanel() {
   const [enabled, setEnabled] = useState(true);
 
   useEffect(() => {
@@ -25,10 +25,10 @@ function MuteOnWakePanel() {
   }, []);
 
   return (
-    <PanelSection title="Mute On Wake">
+    <PanelSection title="Mute On Sleep">
       <PanelSectionRow>
         <ToggleField
-          label="Mute before sleep"
+          label="Mute on sleep"
           description="When enabled, volume is set to 0% right before the Deck goes to sleep"
           checked={enabled}
           onChange={(val) => {
@@ -57,20 +57,20 @@ export default definePlugin(() => {
     if (observable) {
       unregister = observable.observe_((change: any) => {
         if (change.newValue) {
-          console.log("[MuteOnWake] suspending, muting audio");
+          console.log("[MuteOnSleep] suspending, muting audio");
           call("set_volume_zero");
         }
       });
     } else {
-      console.warn("[MuteOnWake] couldn't hook into SuspendResumeStore");
+      console.warn("[MuteOnSleep] couldn't hook into SuspendResumeStore");
     }
   } catch (e) {
-    console.error("[MuteOnWake] failed to register suspend hook:", e);
+    console.error("[MuteOnSleep] failed to register suspend hook:", e);
   }
 
   return {
-    name: "MuteOnWake",
-    content: <MuteOnWakePanel />,
+    name: "MuteOnSleep",
+    content: <MuteOnSleepPanel />,
     icon: <FaVolumeMute />,
     onDismount() {
       unregister?.();
