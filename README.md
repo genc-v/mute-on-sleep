@@ -1,5 +1,7 @@
 # Mute On Sleep
 
+![MuteOnSleep](assets/thumbnail.jpg)
+
 Decky Loader plugin that mutes your Steam Deck's audio before it goes to sleep. No more loud audio when you wake it up in public.
 
 ## Install
@@ -23,4 +25,4 @@ Heads up - since it mutes right before sleep, any other plugin trying to play au
 
 ## License
 
-MIT
+BSD 3-Clause

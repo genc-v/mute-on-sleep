@@ -7,7 +7,7 @@
     "build": "rollup -c",
     "watch": "rollup -c --watch"
   },
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "devDependencies": {
     "@decky/api": "^1.1.2",
     "@decky/rollup": "^1.0.1",
