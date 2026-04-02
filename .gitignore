@@ -3,3 +3,4 @@ dist/
 out/
 .vscode/settings.json
 *.zip
+decky-plugin-database/
