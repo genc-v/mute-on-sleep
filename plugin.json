@@ -6,6 +6,6 @@
   "publish": {
     "tags": ["audio", "utility"],
     "description": "Automatically sets volume to 0% when Steam Deck wakes from sleep.",
-    "image": ""
+    "image": "https://raw.githubusercontent.com/genc-v/mute-on-sleep/main/assets/thumbnail.jpg"
   }
 }
