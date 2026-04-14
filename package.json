@@ -1,6 +1,6 @@
 {
   "name": "mute-on-sleep",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Automatically sets volume to 0% when Steam Deck wakes from sleep",
   "type": "module",
   "scripts": {
