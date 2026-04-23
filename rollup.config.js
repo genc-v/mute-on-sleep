@@ -1,8 +1,6 @@
 import deckyPlugin from "@decky/rollup";
 
-const config = deckyPlugin();
+export default deckyPlugin({
+  // Add your extra Rollup options here
+});
 
-delete config.output.dir;
-config.output.file = "dist/index.js";
-config.output.format = "iife";
-export default config;
